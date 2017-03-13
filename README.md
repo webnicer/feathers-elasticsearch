@@ -103,6 +103,36 @@ console.log('Feathers app started on 127.0.0.1:3030');
 You can run this example by using `npm start` and going to [localhost:3030/messages](http://localhost:3030/messages).
 You should see an empty array. That's because you don't have any messages yet but you now have full CRUD for your new message service!
 
+## Supported Elasticsearch specific queries
+
+On top of the standard, cross-adapter [queries](http://docs.feathersjs.com/databases/querying.html), feathers-elasticsearch also supports Elasticsearch specific queries.
+
+### $match
+Full text query. Find all documents which have given given fields matching the specified value (analysed).
+
+```js
+query: {
+  bio: {
+    $match: 'javascript'
+  }
+}
+```
+
+Read more on the `match` query in the [Elasticsearch documentation](https://https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html).
+
+### $prefix
+Term level query. Find all documents which have given field containing terms with a specified prefix (not analyzed).
+
+```js
+query: {
+  user: {
+    $prefix: 'bo'
+  }
+}
+```
+
+Read more on the `prefix` query in the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-prefix-query.html).
+
 ## Supported Elasticsearch versions
 
 feathers-elasticsearch is currently tested on Elasticsearch 2.4, 5.0 and 5.1. The lowest version supported is 2.4,
