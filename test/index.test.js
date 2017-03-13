@@ -9,6 +9,8 @@ import elasticsearch from 'elasticsearch';
 import service from '../src';
 import server from './test-app';
 
+const esVersion = process.env.ES_VERSION && process.env.ES_VERSION.replace(/\.\d+$/, '') || '5.0';
+
 describe('Elasticsearch Service', () => {
   const app = feathers();
   const serviceName = 'people';
@@ -18,7 +20,7 @@ describe('Elasticsearch Service', () => {
   before(() => {
     client = new elasticsearch.Client({
       host: 'localhost:9200',
-      apiVersion: '5.0'
+      apiVersion: esVersion
     });
 
     return client.indices.exists({ index: 'test' })
